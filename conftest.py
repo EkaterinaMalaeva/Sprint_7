@@ -13,8 +13,4 @@ def courier_methods():
 def order_methods():
     return OrderMethods(url=f'{BASE_URL}{ORDERS_URL}')
 
-# @pytest.fixture()
-# def authorize_courier(courier):
-#     response = CourierMethods().authorize_courier(courier[2])
-#     return response.json()['id']
 
