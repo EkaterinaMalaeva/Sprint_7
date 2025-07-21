@@ -7,20 +7,16 @@ from methods.counter_methods import CourierMethods
 class TestCourier:
 
     @allure.story("Создание курьера")
-    @allure.title("Курьер создаётся успешно")
-    @allure.description("Создание нового курьера с валидными данными возвращает статус 201")
-    def test_create_courier_success_status(self, courier_methods):
+    @allure.title("Успешное создание курьера — статус 201 и ответ 'ok': true")
+    @allure.description(
+        "Проверяет, что при валидных данных курьер создаётся успешно: статус 201 и тело ответа содержит 'ok': true")
+    def test_create_courier_success(self, courier_methods):
         data = courier_methods.generate_courier_data()
-        _, status = courier_methods.create_courier(data)
-        assert status == 201, f"Ожидали статус 201, но получили {status}"
+        response, status = courier_methods.create_courier(data)
 
-    @allure.story("Создание курьера")
-    @allure.title("Ответ успешного создания содержит 'ok': true")
-    @allure.description("Проверка, что в теле ответа при успешном создании есть {'ok': True}")
-    def test_create_courier_success_response(self, courier_methods):
-        data = courier_methods.generate_courier_data()
-        response, _ = courier_methods.create_courier(data)
-        assert response == {"ok": True}, f"Ожидали {{'ok': True}}, но получили {response}"
+        assert status == 201 and response == {"ok": True}, (
+            f"Ожидали статус 201 и ответ {{'ok': True}}, но получили статус {status} и ответ {response}"
+        )
 
     @allure.story("Создание курьера")
     @allure.title("Нельзя создать дубликат логина — статус 409")

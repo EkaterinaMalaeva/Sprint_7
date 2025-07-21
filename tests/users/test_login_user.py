@@ -60,7 +60,7 @@ class TestLoginCourier:
 
         try:
             message = response.json().get("message", "")
-        except Exception:
+        except ValueError:
             message = response.text
 
         assert response.status_code == expected_status or "Service unavailable" in message, (
